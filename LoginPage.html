@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Login</title>
+<meta name="author" content="Yi Hu"/>
+<meta name="description" content="Log-in Page"/>
+<link rel="shortcut icon" href="http://pngimg.com/uploads/cat/cat_PNG50507.png" type="image/x-icon" />
+<link rel="stylesheet" href="style.css">
+<style>
+</style>
+</head>
+<body>
+    <div class="login">
+        <header>
+            <hgroup>
+                <h1>User Login</h1>
+            </hgroup>
+        </header>
+        <p>Username: <input type="text" id="username" value="" placeholder="Username"></p>
+        <p>Password:&nbsp;&nbsp;<input type="password" id="password" value="" placeholder="Password"></p>
+        <p><a href="#">Create Account/Forget?</a><button class="button" onclick="login()">Login</button></p>
+        <p id="hint"></p>
+    </div>    
+    <script>
+        function login() {
+            if (document.getElementById("username").value == "user" && document.getElementById("password").value == "123"){
+                alert("Successfully Log in!");
+                localStorage.setItem("Sec1-score", 0);
+                localStorage.setItem("Sec1-answer", 0);
+                localStorage.setItem("Sec2-score", 0);
+                localStorage.setItem("Sec2-answer", 0);
+                localStorage.setItem("Sec3-score", 0);
+                localStorage.setItem("Sec3-answer", 0);
+                window.location.href = "MathPage.html";
+            }
+            else document.getElementById("hint").innerHTML = "Hint: The correct username is 'user', password is '123'";
+        }
+    </script>
+</body>
+</html>

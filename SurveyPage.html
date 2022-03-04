@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Survey</title>
+<meta name="author" content="Yi Hu"/>
+<meta name="description" content="Survey Page"/>
+<link rel="shortcut icon" href="http://pngimg.com/uploads/cat/cat_PNG50507.png" type="image/x-icon" />
+<link rel="stylesheet" href="style.css">
+<style>
+    .comments {
+        display: flex;
+        justify-content: space-between;
+    }
+    span {
+        flex-basis: 30%;
+    }
+</style>
+</head>
+<body>
+    <div class="box">
+        <header>
+            <hgroup>
+                <h1>Survey</h1>
+            </hgroup>
+        </header>
+        <form>
+            <div>
+                <p>How did you like the center?</p><br>
+                <div class="comments">
+                    <span>Comments:&nbsp;&nbsp;</span>
+                    <span><textarea name="comments" id="comments" rows="5" cols="80"></textarea></span>
+                    <span></span>
+                </div>
+                <p>Select Text Area Location:</p><br>
+                <label> City:
+                    <input type="text" name="location" list="locationList"/>
+                    <datalist id="locationList">
+                        <option value="San Jose">
+                        <option value="Santa Clara">
+                        <option value="San Francisco">
+                        <option value="Las Vegas">
+                        <option value="Los Angeles">
+                        <option value="New York">
+                        <option value="Chicago">
+                        <option value="San Diego">
+                        <option value="Seattle">
+                        <option value="Boston">
+                        <option value="Oakland">
+                    </datalist>
+                </label>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <label> Room Number:
+                    <input type="text" name="room" list="roomList"/>
+                    <datalist id="roomList">
+                        <option value="Room 111">
+                        <option value="Room 133">
+                        <option value="Room 450">
+                        <option value="Room 202">
+                        <option value="Room 313">
+                        <option value="Room 221">
+                        <option value="Room 523">
+                        <option value="Room 123">
+                        <option value="Room 321">
+                    </datalist>
+                </label>
+            </div>
+            <br><br>
+            <div>
+                <input class="button" type="submit" value="Submit & Get Score">
+                <input class="button" onclick="skip()" value="Skip & Get Score">
+            </div>
+        </form>
+    </div>
+    <script>
+        var getComments = document.getElementsByName("comments")[0];
+        getComments.addEventListener("input", function(){
+            localStorage.setItem("comments", this.value);
+        });
+
+        var getLocationValue = document.getElementsByName("location")[0];
+        getLocationValue.addEventListener("input", function(){
+            localStorage.setItem("location", this.value);
+        });
+
+        var getRoomValue = document.getElementsByName("room")[0];
+        getRoomValue.addEventListener("input", function(){
+            localStorage.setItem("room", this.value);
+        });
+
+        var form = document.querySelector("form");
+        form.addEventListener("submit", function(event) {
+            alert("Thank you for your feedback!");
+            window.location.href = "SummaryPage.html";
+            event.preventDefault();
+        }, false);
+
+        function skip() {
+            localStorage.removeItem("comments");
+            localStorage.removeItem("location");
+            localStorage.removeItem("room");
+            window.location.href = "SummaryPage.html";
+        }
+    </script>
+</body>
+</html>

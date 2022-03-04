@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Summary</title>
+<meta name="author" content="Yi Hu"/>
+<meta name="description" content="Summary Page"/>
+<link rel="shortcut icon" href="http://pngimg.com/uploads/cat/cat_PNG50507.png" type="image/x-icon" />
+<link rel="stylesheet" href="style.css">
+<style>
+    section {border: solid thin black; padding: 5px}
+    details > summary { font-weight: bold}
+</style>
+</head>
+<body>
+    <div class="box">
+        <header>
+            <hgroup>
+                <h1>Score Card</h1>
+            </hgroup>
+        </header>
+        <section>
+            <details>
+                <summary>Quantitave Section</summary>
+                <p id="section1-1"></p>
+                <p id="section1-2"></p>
+                <p id="section1-3"></p>
+            </details><br>
+            <details>
+                <summary>Reading Section</summary>
+                <p id="section2-1"></p>
+                <p id="section2-2"></p>
+                <p id="section2-3"></p>
+            </details><br>
+            <details>
+                <summary>Audio/Video Section</summary>
+                <p id="section3-1"></p>
+                <p id="section3-2"></p>
+                <p id="section3-3"></p>
+            </details>
+        </section>
+        <p>The correct answers are: D A A A</p>
+        <p style="text-align: center; font-weight: bold;">Thank You!!</p><br>
+        <div style="text-align: center;">
+            <input class="button" onclick="finish()" value="Finish">
+        </div>
+    </div>
+    <script>
+        document.getElementById("section1-1").innerHTML = "Number of Questions Answered: " + localStorage.getItem("Sec1-answer");
+        document.getElementById("section1-2").innerHTML = "Number of Correct Answers: " + localStorage.getItem("Sec1-score");
+        document.getElementById("section1-3").innerHTML = "Score: " + localStorage.getItem("Sec1-score")*50;
+        document.getElementById("section2-1").innerHTML = "Number of Questions Answered: " + localStorage.getItem("Sec2-answer");
+        document.getElementById("section2-2").innerHTML = "Number of Correct Answers: " + localStorage.getItem("Sec2-score");
+        document.getElementById("section2-3").innerHTML = "Score: " + localStorage.getItem("Sec2-score")*100;
+        document.getElementById("section3-1").innerHTML = "Number of Questions Answered: " + localStorage.getItem("Sec3-answer");
+        document.getElementById("section3-2").innerHTML = "Number of Correct Answers: " + localStorage.getItem("Sec3-score");
+        document.getElementById("section3-3").innerHTML = "Score: " + localStorage.getItem("Sec3-score")*100;
+
+        function finish(){
+            localStorage.clear();
+            alert("Back to Login page!");
+            window.location.href = "LoginPage.html";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+body {
+    font-family: 'Brush Script MT', cursive;
+    color: #000000;
+    background: #c9e1e9;
+}
+
+.login {
+    position: relative;
+    margin: 30px auto;
+    padding: 20px 20px 20px;
+    width: 300px;
+    border: solid thin black;
+    background: white;
+    border-radius: 10px;
+}
+.login h1 {
+    line-height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin: -20px -20px 20px;
+    background: #f3f3f3f3;
+    border-bottom: 1px solid #cfcfcff6;
+    border-radius: 10px;
+}
+.login p {
+    margin: 20px 0 0;
+}
+
+.button {
+    border-radius: 10px;
+    padding: 8px 16px;
+    margin: 4px 2px;
+    margin-left: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white; 
+    color: black; 
+    border: 2px solid #0a96c5;
+}
+.button:hover {
+    background-color: #0a96c5;
+    color: white;
+}
+
+.box {
+    position: relative;
+    margin: 30px auto;
+    padding: 20px 20px 20px;
+    width: 850px;
+    border: solid thin black;
+    background: white;
+    border-radius: 10px;
+}
+.box h1 {
+    line-height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin: -20px -20px 20px;
+    background: #f3f3f3f3;
+    border-bottom: 1px solid #cfcfcff6;
+    border-radius: 10px;
+}
+.box p {
+    margin: 20px 0 0;
+}
+
+.option {
+    display: flex;
+    justify-content: space-between;
+}
+.option label {
+    flex-basis: 50%;
+}

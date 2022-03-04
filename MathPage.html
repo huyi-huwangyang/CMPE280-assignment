@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Question1</title>
+<meta name="author" content="Yi Hu"/>
+<meta name="description" content="Question1"/>
+<link rel="shortcut icon" href="http://pngimg.com/uploads/cat/cat_PNG50507.png" type="image/x-icon" />
+<link rel="stylesheet" href="style.css">
+<style>
+</style>
+</head>
+<body>
+    <div class="box">
+        <header>
+            <hgroup>
+                <h1>Question 1</h1>
+            </hgroup>
+        </header>
+        <aside style="float:right;">
+            <figure>
+                <img src="line.jpg" width="220" height="220" />
+            </figure>
+        </aside>
+        <form>
+            <p>Given points(x1, y1) and (x2,y2), select the formula to find the equation of the given line.</p>
+            <br><br><br>
+            <div class="option">
+                <input type="radio" id="A" name="math" value="false">
+                <label for="A">
+                    <math>
+                        <mrow>
+                            <mi>y</mi>
+                            <mo>=</mo>
+                            <mi>mx</mi>
+                            <mo>+</mo>
+                            <mi>b</mi>
+                        </mrow>
+                    </math>
+                </label>
+                <input type="radio" id="B" name="math" value="false">
+                <label for="B">
+                    <math>
+                        <mrow>
+                            <msup>
+                                <mrow>
+                                    <mo>(</mo>
+                                    <mrow>
+                                        <mi>x</mi>
+                                        <mo>-</mo>
+                                        <mi>h</mi>
+                                    </mrow>
+                                    <mo>)</mo>
+                                </mrow>
+                                <mn>2</mn>
+                            </msup>
+                            <mo>+</mo>
+                            <msup>
+                                <mrow>
+                                    <mo>(</mo>
+                                    <mrow>
+                                        <mi>y</mi>
+                                        <mo>-</mo>
+                                        <mi>k</mi>
+                                    </mrow>
+                                    <mo>)</mo>
+                                </mrow>
+                                <mn>2</mn>
+                            </msup>
+                            <mo>=</mo>
+                            <msup>
+                                <mrow>
+                                    <mi>r</mi>
+                                </mrow>
+                                <mn>2</mn>
+                            </msup>
+                        </mrow>
+                    </math>
+                </label>
+            </div>
+            <br><br>
+            <div class="option">
+                <input type="radio" id="C" name="math" value="false">
+                <label for="C">
+                    <math>
+                        <mrow>
+                            <mi>y</mi>
+                            <mo>-</mo>
+                            <msub>  
+                                <mi>y</mi>  
+                                <mn>1</mn>  
+                            </msub>
+                            <mo>=</mo>
+                            <mi>m</mi>
+                            <mo>(</mo>
+                            <mi>x</mi>
+                            <mo>-</mo>
+                            <msub>  
+                                <mi>x</mi>  
+                                <mn>1</mn>  
+                            </msub>
+                            <mo>)</mo>
+                        </mrow>
+                    </math>
+                </label>
+                <input type="radio" id="D" name="math" value="true">
+                <label for="D">
+                    <math>
+                        <mrow>
+                            <mi>y</mi>
+                            <mo>-</mo>
+                            <msub>  
+                                <mi>y</mi>  
+                                <mn>2</mn>  
+                            </msub>
+                            <mo>=</mo>
+                            <mfrac>
+                                <mrow>
+                                    <msub>  
+                                        <mi>y</mi>  
+                                        <mn>2</mn>  
+                                    </msub>
+                                    <mo>-</mo>
+                                    <msub>  
+                                        <mi>y</mi>  
+                                        <mn>1</mn>  
+                                    </msub>
+                                </mrow>
+                                <mrow>
+                                    <msub>  
+                                        <mi>x</mi>  
+                                        <mn>2</mn>  
+                                    </msub>
+                                    <mo>-</mo>
+                                    <msub>  
+                                        <mi>x</mi>  
+                                        <mn>1</mn>  
+                                    </msub>
+                                </mrow>
+                            </mfrac>
+                            <mo>(</mo>
+                            <mi>x</mi>
+                            <mo>-</mo>
+                            <msub>  
+                                <mi>x</mi>  
+                                <mn>2</mn>  
+                            </msub>
+                            <mo>)</mo>
+                        </mrow>
+                    </math>
+                </label>
+            </div>
+            <br><br>
+            <div>
+                <input class="button" type="submit" value="Submit & Next Question">
+                <input class="button" onclick="cancel()" value="Cancel & Clear Selection">
+            </div>
+        </form>
+    </div>    
+    <script>
+        var form = document.querySelector("form");
+        //submit and next question
+        form.addEventListener("submit", function(event) {
+            let data = new FormData(form);
+            let result = "";
+            let score = localStorage.getItem("Sec1-score");
+            let answer = localStorage.getItem("Sec1-answer");
+            for (const entry of data) {
+                result = entry[1];
+            };
+            if (result){
+                if (result == "true"){
+                    localStorage.setItem("Sec1-score", ++score);
+                    localStorage.setItem("Sec1-answer", ++answer);
+                } 
+                else {
+                    localStorage.setItem("Sec1-answer", ++answer);
+                }
+            }
+            window.location.href = "CosinePage.html";
+            event.preventDefault();
+        }, false);
+        
+        //cancel and clear selection
+        function cancel() {
+            // document.getElementById("A").checked = false;
+            // document.getElementById("B").checked = false;
+            // document.getElementById("C").checked = false;
+            // document.getElementById("D").checked = false;
+            var element = document.getElementsByName("math");
+            for(var i=0; i<element.length; i++)
+                element[i].checked = false;
+        }
+    </script>
+</body>
+</html>

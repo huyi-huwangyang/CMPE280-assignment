@@ -1,0 +1,198 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Question2</title>
+<meta name="author" content="Yi Hu"/>
+<meta name="description" content="Question2"/>
+<link rel="shortcut icon" href="http://pngimg.com/uploads/cat/cat_PNG50507.png" type="image/x-icon" />
+<link rel="stylesheet" href="style.css">
+<style>
+</style>
+</head>
+<body>
+    <div class="box">
+        <header>
+            <hgroup>
+                <h1>Question 2</h1>
+            </hgroup>
+        </header>
+        <form>
+            <p>Select the cosine theorem formula.</p>
+            <br><br>
+            <div class="option">
+                <input type="radio" id="A" name="cosine" value="true">
+                <label for="A">
+                    <math>
+                        <mrow>
+                            <mi>cos</mi>
+                            <mo>(</mo>
+                            <mi>&#x03b1;</mi>
+                            <mo>&#x00B1;</mo>
+                            <mi>&#x03b2;</mi>
+                            <mo>)</mo>
+                            <mo>=</mo>
+                            <mi>cos</mi>
+                            <mi>&#x03b1;</mi>
+                            <mi>cos</mi>
+                            <mi>&#x03b2;</mi>
+                            <mo>&#8723;</mo>
+                            <mi>sin</mi>
+                            <mi>&#x03b1;</mi>
+                            <mi>sin</mi>
+                            <mi>&#x03b2;</mi>
+                        </mrow>
+                    </math>
+                </label>
+                <input type="radio" id="B" name="cosine" value="false">
+                <label for="B">
+                    <math>
+                        <mrow>
+                            <mi>sin</mi>
+                            <mo>(</mo>
+                            <mi>&#x03b1;</mi>
+                            <mo>&#x00B1;</mo>
+                            <mi>&#x03b2;</mi>
+                            <mo>)</mo>
+                            <mo>=</mo>
+                            <mi>sin</mi>
+                            <mi>&#x03b1;</mi>
+                            <mi>cos</mi>
+                            <mi>&#x03b2;</mi>
+                            <mo>&#x00B1;</mo>
+                            <mi>cos</mi>
+                            <mi>&#x03b1;</mi>
+                            <mi>sin</mi>
+                            <mi>&#x03b2;</mi>
+                        </mrow>
+                    </math>
+                </label>
+            </div>
+            <br><br><br>
+            <div class="option">
+                <input type="radio" id="C" name="cosine" value="false">
+                <label for="C">
+                    <math>
+                        <mrow>
+                            <mi>sin</mi>
+                            <mi>&#x03b1;</mi>
+                            <mo>+</mo>
+                            <mi>sin</mi>
+                            <mi>&#x03b2;</mi>
+                            <mo>=</mo>
+                            <mn>2</mn>
+                            <mi>sin</mi>
+                            <mrow>
+                                <mo>(</mo>
+                                <mfrac>
+                                    <mrow>
+                                        <mi>&#x03b1;</mi>
+                                        <mo>+</mo>
+                                        <mi>&#x03b2;</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </mfrac>
+                                <mo>)</mo>
+                            </mrow>
+                            <mi>cos</mi>
+                            <mrow>
+                                <mo>(</mo>
+                                <mfrac>
+                                    <mrow>
+                                        <mi>&#x03b1;</mi>
+                                        <mo>-</mo>
+                                        <mi>&#x03b2;</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </mfrac>
+                                <mo>)</mo>
+                            </mrow>
+                        </mrow>
+                    </math>
+                </label>
+                <input type="radio" id="D" name="cosine" value="false">
+                <label for="D">
+                    <math>
+                        <mrow>
+                            <mi>sin</mi>
+                            <mi>&#x03b1;</mi>
+                            <mo>-</mo>
+                            <mi>sin</mi>
+                            <mi>&#x03b2;</mi>
+                            <mo>=</mo>
+                            <mn>2</mn>
+                            <mi>cos</mi>
+                            <mrow>
+                                <mo>(</mo>
+                                <mfrac>
+                                    <mrow>
+                                        <mi>&#x03b1;</mi>
+                                        <mo>+</mo>
+                                        <mi>&#x03b2;</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </mfrac>
+                                <mo>)</mo>
+                            </mrow>
+                            <mi>sin</mi>
+                            <mrow>
+                                <mo>(</mo>
+                                <mfrac>
+                                    <mrow>
+                                        <mi>&#x03b1;</mi>
+                                        <mo>-</mo>
+                                        <mi>&#x03b2;</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </mfrac>
+                                <mo>)</mo>
+                            </mrow>
+                        </mrow>
+                    </math>
+                </label>
+            </div>
+            <br><br>
+            <div>
+                <input class="button" type="submit" value="Submit & Next Question">
+                <input class="button" onclick="cancel()" value="Cancel & Clear Selection">
+            </div>
+        </form>
+    </div>
+    <script>
+        var form = document.querySelector("form");
+        form.addEventListener("submit", function(event) {
+            let data = new FormData(form);
+            let result = "";
+            let score = localStorage.getItem("Sec1-score");
+            let answer = localStorage.getItem("Sec1-answer");
+            for (const entry of data) {
+                result = entry[1];
+            };
+            if (result){
+                if (result == "true"){
+                    localStorage.setItem("Sec1-score", ++score);
+                    localStorage.setItem("Sec1-answer", ++answer);
+                } 
+                else {
+                    localStorage.setItem("Sec1-answer", ++answer);
+                }
+            }
+            window.location.href = "EnglishPage.html";
+            event.preventDefault();
+        }, false);
+
+        function cancel() {
+            var element = document.getElementsByName("cosine");
+            for(var i=0; i<element.length; i++)
+                element[i].checked = false;
+        }
+    </script>
+</body>
+</html>

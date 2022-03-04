@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Question3</title>
+<meta name="author" content="Yi Hu"/>
+<meta name="description" content="Question3"/>
+<link rel="shortcut icon" href="http://pngimg.com/uploads/cat/cat_PNG50507.png" type="image/x-icon" />
+<link rel="stylesheet" href="style.css">
+<style>
+</style>
+</head>
+<body>
+    <div class="box">
+        <header>
+            <hgroup>
+                <h1>Question 3</h1>
+            </hgroup>
+        </header>
+        <aside style="font-size:15px;font-style:italic;color:blue;float:right;width:350px;">
+            -<br>
+            Twitter wants more cash. The company announced two <mark>$_____</mark> million debt offerings in a filing today, 
+            each with a potential $100 increase provided that the sales are oversubscribed. Assuming full tip, including 
+            the $100 million boosters <mark>_____</mark> will raise up to $1.5 billion with the two offerings.
+            <br>-
+            <p style="font-size:10px;">Source: http://techcrunch.com/2014/09/10/twitter-to-raise-up-to-1-5b-in-debt-offering/</p>
+        </aside>
+        <form>
+            <p>As per the latest twitter news, complete the article snippet given by selecting appropriate choices for the blanks.</p>
+            <br><br>
+            <div class="option">
+                <input type="radio" id="A" name="english" value="true">
+                <label for="A">Option 1 Mark 1: $650</label>
+                <input type="radio" id="A" name="english" value="false">
+                <label for="A">Option 1 Mark 2: Twitter</label>
+            </div><br>
+            <div class="option">
+                <input type="radio" id="B" name="english" value="false">
+                <label for="B">Option 2 Mark 1: $550</label>
+                <input type="radio" id="B" name="english" value="false">
+                <label for="B">Option 1 Mark 2: Google</label>
+            </div><br>
+            <div class="option">
+                <input type="radio" id="C" name="english" value="false">
+                <label for="C">Option 3 Mark 1: $650</label>
+                <input type="radio" id="C" name="english" value="false">
+                <label for="C">Option 1 Mark 2: Facebook</label>
+            </div>
+            <br><br>
+            <div>
+                <input class="button" type="submit" value="Submit & Next Question">
+                <input class="button" onclick="cancel()" value="Cancel & Clear Selection">
+            </div>
+        </form>
+    </div>
+    <script>
+        var form = document.querySelector("form");
+        form.addEventListener("submit", function(event) {
+            let data = new FormData(form);
+            let result = "";
+            let score = localStorage.getItem("Sec2-score");
+            let answer = localStorage.getItem("Sec2-answer");
+            for (const entry of data) {
+                result = entry[1];
+            };
+            if (result){
+                if (result == "true"){
+                    localStorage.setItem("Sec2-score", ++score);
+                    localStorage.setItem("Sec2-answer", ++answer);
+                } 
+                else {
+                    localStorage.setItem("Sec2-answer", ++answer);
+                }
+            }
+            window.location.href = "VideoPage.html";
+            event.preventDefault();
+        }, false);
+
+        function cancel() {
+            var element = document.getElementsByName("english");
+            for(var i=0; i<element.length; i++)
+                element[i].checked = false;
+        }
+    </script>
+</body>
+</html>

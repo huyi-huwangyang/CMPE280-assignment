@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Question4</title>
+<meta name="author" content="Yi Hu"/>
+<meta name="description" content="Question4"/>
+<link rel="shortcut icon" href="http://pngimg.com/uploads/cat/cat_PNG50507.png" type="image/x-icon" />
+<link rel="stylesheet" href="style.css">
+<style>
+</style>
+</head>
+<body>
+    <div class="box">
+        <header>
+            <hgroup>
+                <h1>Question 4</h1>
+            </hgroup>
+        </header>
+        <aside style="float:right;width:350px;">
+            <video width="350" controls>
+                <source src="video.mp4" type="video/mp4">
+                Your browser does not support HTML video.
+            </video>
+            <h5>Expedition 40 Unlocks Ending Mission</h5>
+            <p style="font-size:10px;">Source: http://www.nasa.gov/multimedia/videogallery/index.html#.VBFB5S5dVOE</p>
+        </aside>
+        <form>
+            <p>Watch the video and answer the following question:</p>
+            <p>What is the source as mentioned in the video?</p>
+            <br><br><br>
+            <div class="option">
+                <input type="radio" id="A" name="video" value="true">
+                <label for="A">NASA.Gov</label>
+                <input type="radio" id="B" name="video" value="false">
+                <label for="B">Data.Gov</label>
+            </div>
+            <br><br>
+            <div class="option">
+                <input type="radio" id="C" name="video" value="false">
+                <label for="C">Facebook</label>
+                <input type="radio" id="D" name="video" value="false">
+                <label for="D">XYZ.net</label>
+            </div>
+            <br><br>
+            <div>
+                <input class="button" type="submit" value="Submit & Next Question">
+                <input class="button" onclick="cancel()" value="Cancel & Clear Selection">
+            </div>
+        </form>
+    </div>
+    <script>
+        var form = document.querySelector("form");
+        form.addEventListener("submit", function(event) {
+            let data = new FormData(form);
+            let result = "";
+            let score = localStorage.getItem("Sec3-score");
+            let answer = localStorage.getItem("Sec3-answer");
+            for (const entry of data) {
+                result = entry[1];
+            };
+            if (result){
+                if (result == "true"){
+                    localStorage.setItem("Sec3-score", ++score);
+                    localStorage.setItem("Sec3-answer", ++answer);
+                } 
+                else {
+                    localStorage.setItem("Sec3-answer", ++answer);
+                }
+            }
+            window.location.href = "SurveyPage.html";
+            event.preventDefault();
+        }, false);
+
+        function cancel() {
+            var element = document.getElementsByName("video");
+            for(var i=0; i<element.length; i++)
+                element[i].checked = false;
+        }
+    </script>
+</body>
+</html>
