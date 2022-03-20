@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Drag And Drop Control Palette</title>
+<meta name="author" content="Yi Hu"/>
+<meta name="description" content="Drag And Drop Control Palette"/>
+<script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<style>
+    #container {border: thin solid rgb(0, 0, 0); margin: auto; display: grid; grid-template-columns: 10% 90%;}
+    #src {border: thin solid rgb(8, 8, 175); width:60px; height: 250px; margin: 20px}
+    #src > img {padding: 2px; margin:2px; width:50px; height:50px}
+    #target {border: thin solid rgb(38, 169, 209); height: 500px; text-align: center; display: table; margin: 20px; margin-left: 0px;}
+    #target > img {width:50px; height:50px}
+    img.dragged {background-color: lightgrey; }
+</style>
+</head>
+<body>
+<div>
+    <h2 style="text-align: center;">Drag and Drop Control Palette HTML Driver</h2>
+    <div id="container">
+        <div id="src">
+            <img draggable="true" id="square" src="http://clipart-library.com/img1/1008318.png" alt="square"/>
+            <img draggable="true" id="circle" src="http://clipart-library.com/newimages/circle-clip-art-34.gif" alt="circle"/>
+            <img draggable="true" id="triangle" src="http://clipart-library.com/data_images/594801.gif" alt="triangle" />
+            <img draggable="true" id="arrow" src="http://clipart-library.com/images_k/arrow-clipart-transparent-background/arrow-clipart-transparent-background-22.png" alt="arrow" />    
+        </div>
+        <div id="target">
+            <canvas id="canvas" width="1350" height="500"></canvas>
+        </div>
+    </div>
+</div>
+<script>
+    var src = document.getElementById("src");
+    var target = document.getElementById("canvas");
+    //add a drag ID
+    var draggedID;
+    target.ondragenter = handleDrag;
+    target.ondragover = handleDrag;
+    //number of items
+    var squareNum = 0, circleNum = 0, triangleNum = 0, arrowNum = 0;
+    //offset for position
+    var offsetX = 0, offsetY = 0;
+
+    target.ondrop = function(e) {
+        var newElem = document.getElementById(draggedID).cloneNode(false);//clone to be a new element  
+        target.innerHTML = "";//hide message
+
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        // get canvas bounds
+        var rect = canvas.getBoundingClientRect();
+        var x = e.pageX - rect.left - offsetX;
+        var y = e.pageY - rect.top - offsetY;
+        
+        console.log("x:", x, "y:", y);
+
+        // draw image and set size, font
+        ctx.drawImage(newElem, x, y, 60, 60);
+        ctx.font = "13px Sans-serif";
+
+        // draw text for dragged fruit and count
+        if(draggedID === 'square') { 
+            squareNum ++;
+            ctx.fillText("square " + squareNum, x+10, y+35);
+        }
+        if(draggedID === 'circle') { 
+            circleNum ++;
+            ctx.fillText("circle " + circleNum, x+10, y+35);
+        }
+        if(draggedID === 'triangle') { 
+            triangleNum ++;
+            ctx.fillText("triangle " + triangleNum, x+10, y+35);
+        }
+        if(draggedID === 'arrow') { 
+            arrowNum ++;
+            ctx.fillText("arrow " + arrowNum, x+10, y+35);
+        }
+        e.preventDefault();
+    }
+    function handleDrag(e) {
+        e.preventDefault();
+    }
+    src.ondragstart = function(e) {
+        draggedID = e.target.id;//drag ID
+        console.log(draggedID);
+
+        //set offset : distance between clickedElem and top left of image
+        var clickedElem = document.getElementById(draggedID).getBoundingClientRect();
+        offsetX = e.pageX - clickedElem.left;
+        offsetY = e.pageY - clickedElem.top;
+
+        e.target.classList.add("dragged");
+    }
+    src.ondragend = function(e) {
+        var elems = document.querySelectorAll(".dragged");//all elements that have class name 'dragged'
+        for (var i = 0; i < elems.length; i++) {
+            elems[i].classList.remove("dragged");
+        }
+        console.log("dragend")
+    }
+</script>
+</body>
+</html>

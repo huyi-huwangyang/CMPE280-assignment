@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Health Camp SPA</title>
+  <meta name="author" content="Yi Hu"/>
+  <meta name="description" content="Demographics Page"/>
+  <link rel="shortcut icon" href="http://pngimg.com/uploads/cat/cat_PNG50507.png" type="image/x-icon" />
+  <link rel="stylesheet" href="./css/style.css">
+  <!-- jquery need to be placed before own external js file -->
+  <script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf-8" src="./js/script.js"></script>
+</head>
+<body>
+
+<div class="topnav">
+  <span>Health Camp SPA</span>
+  <a href="reports.html">Reports</a>
+  <a href="healthVitals.html">Health Vitals</a>
+  <a class="active" href="index.html">Demographics</a>
+</div>
+
+<form id="patient_form" action="/patient" method="post" accept-charset="utf-8">
+  <div class="grid-container">
+    <div class="grid-item">
+      <table>
+        <tr>
+          <td align=right>First Name:</td>
+          <td> <input type="text" id="firstname" name="firstname" required autofocus /> <br /> </td>
+        </tr>
+        <tr>
+          <td align=right>Last Name:</td>
+          <td> <input type="text" id="lastname" name="lastname" required /> <br /> </td>
+        </tr>
+        <tr>
+          <td align=right>Gender:</td> 
+          <td>
+            <select name="gender" id="gender" required>
+              <option value="" selected disabled hidden></option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Prefer not to answer">Prefer not to answer</option>
+            </select> </br> 
+          </td>
+        </tr>
+        <tr>
+          <td align=right>Age:</td>
+          <td> <input type="number" id="age" name="age" required /> <br /> </td>
+        </tr>
+        <tr>
+          <td align=right>Notes or Other details:</td>
+          <td> <input type="text" id="other" name="other" /> <br /> </td>
+        </tr>
+        <tr>
+          <td> </td>
+          <td> 
+            <input class="button" type="submit" id="save_patient_button" value="Save">
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="grid-item">
+      <p>Photo:</p>
+      <!-- show default image, and preview selected image -->
+      <img id="myImg" src="./image/default.jpg" width="200"/> <br>
+      <!-- image file input button -->
+      <input type='file' id="imageInput"/>
+      <!-- in order to store image data somewhere, store in a span where id = image -->
+      <span id="image"></span>
+    </div>
+  </div>
+</form>
+<p class="message" id="message">
+  
+<script>
+  //preview the selected image
+  window.addEventListener('load', function() {
+    document.querySelector('input[type="file"]').addEventListener('change', function() {
+      if (this.files && this.files[0]) {
+        var img = document.querySelector('img');
+        img.onload = () => {
+            URL.revokeObjectURL(img.src);
+        }
+        img.src = URL.createObjectURL(this.files[0]);
+      }
+    });
+  });
+  //convert image file into data, and store the data in id=image, will be retrieved when click save button
+  document.querySelector("#imageInput").addEventListener("change", function(){
+    const reader = new FileReader();
+    reader.addEventListener("load", ()=>{
+      //console.log(reader.result); //converted data
+      var imageData = document.getElementById("image");
+      imageData.value = reader.result;
+      console.log(imageData.value);
+    });
+    reader.readAsDataURL(this.files[0]);
+  })
+  
+  //AJAX POST patient_form data
+  // $('form#patient_form').submit(function(event){
+  //   event.preventDefault();
+  //   $.ajax({
+  //     url: "/patient_form",
+  //     type: "POST",
+  //     data: {
+  //       str: "hello"
+  //     },
+  //     //dataType: 'json',
+  //     success: function(result) {
+        // var id = result.insertId;
+        // var message = document.getElementById('message');
+        // message.textContent = "Your ID is "+id+ ". You can use this ID to insert health vitals information";
+        // alert('Patient record ' + id + ' saved!');
+    //   }
+    // })
+    // var data = {
+    //   firstname : $("#firstname"),
+    //   lastname : $("#lastname"),
+    //   gender : $("#gender"),
+    //   age : $("#age"),
+    //   other : $("#other"),
+    //   image : $("#image")
+    // }
+    // var form = document.getElementById("patient_form");
+    // var formData = new FormData(form);
+    // httpRequest = new XMLHttpRequest();
+    // httpRequest.onreadystatechange = function (){
+    //   if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+    //     var id = result.insertId;
+    //     var message = document.getElementById('message');
+    //     message.textContent = "Your ID is "+id+ ". You can use this ID to insert health vitals information";
+    //     alert('Patient record ' + id + ' saved!');
+    //   }
+    // };
+    // httpRequest.open("POST", form.action);
+    // httpRequest.send(data);
+  // });
+
+
+  // document.getElementById("save_patient_button").onclick = handleButtonPress;
+  // var httpRequest;
+  // var data = {
+  //     firstname : $("#firstname"),
+  //     lastname : $("#lastname"),
+  //     gender : $("#gender"),
+  //     age : $("#age"),
+  //     other : $("#other"),
+  //     image : $("#image")
+  //   }
+  // function handleButtonPress(e) {
+  //     e.preventDefault();
+  //     var form = document.getElementById("patient_form");
+  //     var formData = new Object();
+  //     var inputElements = document.getElementsByTagName("input");
+  //     for (var i = 0; i < inputElements.length; i++) {
+  //         formData[inputElements[i].name] = inputElements[i].value;
+  //     }
+  //     httpRequest = new XMLHttpRequest();
+  //     httpRequest.onreadystatechange = handleResponse;
+  //     httpRequest.open("POST", form.action);
+  //     httpRequest.setRequestHeader("Content-Type", "application/json");
+  //     httpRequest.send(JSON.stringify(formData));
+  //   }
+
+  // function handleResponse() {
+  //     if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+  //       document.getElementById("results").innerHTML = httpRequest.responseText;
+  //     }
+  // }
+</script>
+
+</body>
+</html>

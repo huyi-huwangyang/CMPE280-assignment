@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Health Camp SPA</title>
+  <meta name="author" content="Yi Hu"/>
+  <meta name="description" content="Demographics Page"/>
+  <link rel="shortcut icon" href="http://pngimg.com/uploads/cat/cat_PNG50507.png" type="image/x-icon" />
+  <link rel="stylesheet" href="style.css">
+  <!-- jquery need to be placed before own external js file -->
+  <script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf-8" src="health.js"></script>
+</head>
+<body>
+
+<div class="topnav">
+  <span>Health Camp SPA</span>
+  <a href="reports.html">Reports</a>
+  <a href="healthVitals.html">Health Vitals</a>
+  <a class="active" href="index.html">Demographics</a>
+</div>
+
+<form id="patient_form" action="save_form" method="post" accept-charset="utf-8">
+  <div class="grid-container">
+    <div class="grid-item">
+      <table>
+        <tr>
+          <td align=right>First Name:</td>
+          <td> <input type="text" id="firstname" name="firstname" required autofocus /> <br /> </td>
+        </tr>
+        <tr>
+          <td align=right>Last Name:</td>
+          <td> <input type="text" id="lastname" name="lastname" required /> <br /> </td>
+        </tr>
+        <tr>
+          <td align=right>Gender:</td> 
+          <td>
+            <select name="gender" id="gender" required>
+              <option value="" selected disabled hidden></option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Prefer not to answer">Prefer not to answer</option>
+            </select> </br> 
+          </td>
+        </tr>
+        <tr>
+          <td align=right>Age:</td>
+          <td> <input type="number" id="age" name="age" required /> <br /> </td>
+        </tr>
+        <tr>
+          <td align=right>Notes or Other details:</td>
+          <td> <input type="text" id="other" name="other" /> <br /> </td>
+        </tr>
+        <tr>
+          <td> </td>
+          <td> 
+            <input class="button" type="submit" id="save_patient_button" value="Save">
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="grid-item">
+      <p>Photo:</p>
+      <!-- show default image, and preview selected image -->
+      <img id="myImg" src="image/default.jpg" width="200"/> <br>
+      <!-- image file input button -->
+      <input type='file' id="imageInput"/>
+      <!-- in order to store image data somewhere, store in a span where id = image -->
+      <span id="image"></span>
+    </div>
+  </div>
+</form>
+<p class="message" id="message">
+  
+<script>
+  //preview the selected image
+  window.addEventListener('load', function() {
+    document.querySelector('input[type="file"]').addEventListener('change', function() {
+      if (this.files && this.files[0]) {
+        var img = document.querySelector('img');
+        img.onload = () => {
+            URL.revokeObjectURL(img.src);
+        }
+        img.src = URL.createObjectURL(this.files[0]);
+      }
+    });
+  });
+  //convert image file into data, and store the data in id=image, will be retrieved when click save button
+  document.querySelector("#imageInput").addEventListener("change", function(){
+    const reader = new FileReader();
+    reader.addEventListener("load", ()=>{
+      //console.log(reader.result); //converted data
+      var imageData = document.getElementById("image");
+      imageData.value = reader.result;
+      console.log(imageData.value);
+    });
+    reader.readAsDataURL(this.files[0]);
+  })
+  
+</script>
+
+</body>
+</html>

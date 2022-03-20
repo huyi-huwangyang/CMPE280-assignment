@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Sankey Diagram</title>
+  <meta name="author" content="Yi Hu"/>
+  <meta name="description" content="Sankey Diagram"/>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+    <h2 style="text-align: center;">US Wheat Exports - Sankey Diagram</h2>
+    <div id="sankey" style="width: 600px; height: 500px; margin: auto;"></div>
+</body>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['sankey']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'From');
+        data.addColumn('string', 'To');
+        data.addColumn('number', 'Value');
+        data.addRows([
+            [ 'United States of America', 'Japan', 3104120.07 ],
+            [ 'United States of America', 'Mexico', 2357475.44 ],
+            [ 'United States of America', 'Egypt', 2278194.63 ],
+            [ 'United States of America', 'Nigeria', 1898158.3 ],
+            [ 'United States of America', 'Philippines', 1881650.19 ],
+            [ 'United States of America', 'Republic of Korea', 1397857.7 ],
+            [ 'United States of America', 'China, Taiwan Province of', 969799.22 ],
+            [ 'United States of America', 'China, mainland', 959340.3 ],
+            [ 'United States of America', 'Iran (Islamic Republic of)', 733321.33 ],
+            [ 'United States of America', 'Unspecified Area', 715198.84 ]
+        ]);
+
+        // Sets chart options.
+        var options = {
+            width: 600,
+            sankey: {
+                node: { label: { fontName: 'Times-Roman',
+                                fontSize: 14,
+                                color: 'blue',
+                                bold: true} } },
+        };
+
+        // Instantiates and draws our chart, passing in some options.
+        var chart = new google.visualization.Sankey(document.getElementById('sankey'));
+        chart.draw(data, options);
+    }
+</script>
+</html>
+
+
+   

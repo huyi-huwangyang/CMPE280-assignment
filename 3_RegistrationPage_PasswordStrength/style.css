@@ -1,0 +1,85 @@
+body {
+    font-family: 'Brush Script MT', cursive;
+    color: #000000;
+    background: #c9e1e9;
+}
+
+.register {
+    position: relative;
+    margin: 20px auto;
+    padding: 20px 20px 20px;
+    width: 850px;
+    background: white;
+}
+.register p {
+    margin: 20px 0 0;
+}
+.test {
+    font-family: Arial, sans-serif;
+    font-size: small;
+}
+.error {
+    color: red;
+}
+
+.button {
+    border-radius: 10px;
+    padding: 8px 16px;
+    margin: 4px 2px;
+    margin-left: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white; 
+    color: black; 
+    border: 2px solid #0a96c5;
+}
+.button:hover {
+    background-color: #0a96c5;
+    color: white;
+}
+
+.button_test {
+    border-radius: 10px;
+    padding: 8px 16px;
+    margin: 4px 2px;
+    margin-left: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white; 
+    color: black; 
+    border: 2px solid #0dd14e;
+}
+.button_test:hover {
+    background-color: #0dd14e;
+    color: white;
+}
+
+#interest{
+    height: 44px;
+    border: none;
+    overflow: hidden;
+}
+#interest:-moz-focus-inner {
+    border: 0;
+}
+#interest:focus {
+    outline: none;
+}
+#interest option{
+    padding: 10px;
+    text-align: center;
+    margin-right: 20px;
+    display: inline-block;
+    cursor: pointer;
+    border:rgb(252, 97, 25) solid 1px;
+    border-radius: 3px;
+    color: rgb(241, 161, 68);
+}

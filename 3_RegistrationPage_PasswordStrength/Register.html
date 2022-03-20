@@ -1,0 +1,282 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Register</title>
+<meta name="author" content="Yi Hu"/>
+<meta name="description" content="Registration Page"/>
+<link rel="shortcut icon" href="http://pngimg.com/uploads/cat/cat_PNG50507.png" type="image/x-icon" />
+<link rel="stylesheet" href="style.css">
+<script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+    $(function(){
+        //Upon "Register" button click, save the Registration fields
+        $('form#registration').submit(function(event){
+            event.preventDefault();
+            //verification for email and password
+            if (validate($("#password").val())){
+                save_fields();
+                errMsg.textContent = "";
+                alert("successfully registered! Your fields have been saved!");
+            }
+        });
+    });
+
+    //validation: for email and password
+    function validate(password){
+        var errMsg = document.getElementById('errMsg');
+        //check length
+        if (password.length < 7 || password.length >20 ){
+            errMsg.textContent = "The length of your password should be within 7-20 characters!";
+            return false;
+        }
+        //check not include space
+        if (password.includes(" ")){
+            errMsg.textContent = "Your password should not contain spaces!";
+            return false;
+        }
+        //check not eqaul to user id
+        if (password == $("#userid").val()){
+            errMsg.textContent = "Your password can not be the same as your user ID!";
+            return false;
+        }
+        //check alpha number at least 4
+        let alphaNum = 0;
+        for(var i = 0; i < password.length; i++) {
+            if((password[i] >= 'a' && password[i] <= 'z') || (password[i] >= 'A' && password[i] <= 'Z')) {
+                alphaNum ++;
+            }
+        }
+        if (alphaNum < 4) {
+            errMsg.textContent = "Your password must contain at least 4 alpha characters!";
+            return false;
+        }
+        //check numeric character
+        if (password.search(/[0-9]/) < 0) {
+            errMsg.textContent = "Your password must contain at least one digit!"; 
+            return false;
+        }
+        //check special character
+        if (password.search(/[!#$%]/) < 0) {
+            errMsg.textContent = "Your password must contain at least one special character (!,#,$,%)!"; 
+            return false;
+        }
+        //check verification
+        if (password !== $("#Vpassword").val()){
+            errMsg.textContent = "Password inconsistent! Please confirm your password!";
+            return false;
+        }
+        if ($("#email").val() !== $("#Vemail").val()){
+            errMsg.textContent = "Email inconsistent! Please confirm your email!";
+            return false;
+        }
+        return true;
+    }
+
+    //save registration form fields
+    function save_fields(){
+        //local storage
+        localStorage.setItem("userid", $("#userid").val());
+        localStorage.setItem("email", $("#email").val());
+        localStorage.setItem("Vemail", $("#Vemail").val());
+        localStorage.setItem("question1", $("#question1").val());
+        localStorage.setItem("question2", $("#question2").val());
+        localStorage.setItem("mobile", $("#mobile").val());
+        localStorage.setItem("address", $("#address").val());
+        localStorage.setItem("interest", $("#interest").val());
+        // session storage stores passwords and answers
+        sessionStorage.setItem("password", $("#password").val());
+        sessionStorage.setItem("Vpassword", $("#Vpassword").val());
+        sessionStorage.setItem("answer1", $("#answer1").val());
+        sessionStorage.setItem("answer2", $("#answer2").val());
+    }
+
+    //clear input/select/textarea fields
+    function cancel() {
+        const inputs = document.querySelectorAll('input');
+        for(var i=0; i<inputs.length-1; i++)
+            inputs[i].value = "";
+        const selects = document.querySelectorAll('select');
+        for(var i=0; i<selects.length; i++)
+            selects[i].value = "";
+        const textareas = document.querySelectorAll('textarea');
+        for(var i=0; i<textareas.length; i++)
+            textareas[i].value = "";
+    }
+
+    //testing: get your stored localstorage/sessionStorage data
+    function getLocalStorage() {
+        const storeMsg = document.getElementById('storeMsg');
+        storeMsg.textContent = "Local storage -- User ID:"+localStorage.getItem("userid")
+        +", Email:"+localStorage.getItem("email")
+        +", Verify Email:"+localStorage.getItem("Vemail")
+        +", Question 1:"+localStorage.getItem("question1")
+        +", Question 2:"+localStorage.getItem("question2")
+        +", Mobile:"+localStorage.getItem("mobile")
+        +", Address:"+localStorage.getItem("address")
+        +", Interest:"+localStorage.getItem("interest");
+    }
+    function getSessionStorage() {
+        const storeMsg = document.getElementById('storeMsg');
+        storeMsg.textContent = "Session storage -- Password:"+sessionStorage.getItem("password")
+        +", Verify Password:"+sessionStorage.getItem("Vpassword")
+        +", Answer 1:"+sessionStorage.getItem("answer1")
+        +", Answer 2:"+sessionStorage.getItem("answer2");
+    }
+
+    //password strength check
+    function strengthPassword(password) {
+        var passwordStrength = document.getElementById("passwordMsg");
+        if (password.length == 0) {
+            passwordStrength.innerHTML = "";
+            return;
+        }
+        //Regular Expressions.
+        var regex = new Array();
+        regex.push("[A-Z]"); //Uppercase Alphabet
+        regex.push("[a-z]"); //Lowercase Alphabet
+        regex.push("[0-9]"); //at least 1 numeric
+        regex.push("[!#$%]"); //Special Character
+        var passed = 0;
+        //Validate for each Regular Expression.
+        for (var i = 0; i < regex.length; i++) {
+            if (new RegExp(regex[i]).test(password)) {
+                passed++;
+            }
+        }
+        var strength = "";
+        switch (passed) {
+            case 0:
+            case 1:
+                strength = "<meter value=20 max=100></meter>Very Weak"
+                break;
+            case 2:
+                strength = "<meter value=40 max=100></meter>Weak"
+                break;
+            case 3:
+                strength = "<meter value=60 max=100></meter>Medium";
+                break;
+            case 4:
+                strength = "<meter value=80 max=100></meter>Strong";
+                break;
+        }
+        passwordStrength.innerHTML = strength;
+    }
+</script>
+</head>
+
+<body>
+<div class="register">
+    <h1>Registration</h1>
+    <hr>
+    <form id="registration" action="save_registration" method="post" accept-charset="utf-8">
+        <table>
+            <tr>
+                <td align=right>User ID:</td>
+                <td> <input type="userid" id="userid" name="userid" placeholder="user id" required autofocus /> <br /> </td>
+            </tr>
+            <tr>
+                <td align=right>Password:</td> 
+                <td> <input type="password" id="password" name="password" value="" placeholder="password" required
+                    onkeyup="strengthPassword(this.value)"
+                    title="Must be between 7-20 characters in length and include 4 alpha characters; 1 numeric character(0,9) or 1 special character(!,#,$,%). The password is case sensitive and must not contain spaces or be the same as your user ID."/>
+                    <small id="passwordMsg"></small></br> 
+                </td>
+            </tr>
+            <tr>
+                <td align=right>Verify Password:</td> 
+                <td> <input type="password" id="Vpassword" name="Vpassword" placeholder="password" required
+                    title="Must be between 7-20 characters in length and include 4 alpha characters; 1 numeric character(0,9) or 1 special character(!,#,$,%). The password is case sensitive and must not contain spaces or be the same as your user ID."/> </br> 
+                </td>
+            </tr>
+            <tr>
+                <td align=right>Email Address:</td> 
+                <td> <input type="email" id="email" name="email" placeholder="example@gmail.com" required> </br> </td>
+            </tr>
+            <tr>
+                <td align=right>Verify Email Address:</td> 
+                <td> <input type="email" id="Vemail" name="Vemail" placeholder="example@gmail.com" required> </br> </td>
+            </tr>
+            <tr>
+                <td align=right>Security Question:</td> 
+                <td>
+                    <select name="question1" id="question1" required>
+                        <option value="" selected disabled hidden>Choose here</option>
+                        <option value="Sum of 2 + 3 = ">Sum of 2 + 3 = </option>
+                        <option value="Sum of 100 + 200 = ">Sum of 100 + 200 = </option>
+                        <option value="23 X 100 = ">23 X 100 = </option>
+                        <option value="Capital of India?">Capital of India?</option>
+                        <option value="Capital of USA?">Capital of USA?</option>
+                    </select> </br> 
+                </td>
+            </tr>
+            <tr>
+                <td align=right>Security Answer:</td> 
+                <td> <input type="text" id="answer1" name="answer1" required> </br> </td>
+            </tr>
+            <tr>
+                <td align=right>Security Question:</td> 
+                <td>
+                    <select name="question2" id="question2" required>
+                        <option value="" selected disabled hidden>Choose here</option>
+                        <option value="Sum of 2 + 3 = ">Sum of 2 + 3 = </option>
+                        <option value="Sum of 100 + 200 = ">Sum of 100 + 200 = </option>
+                        <option value="23 X 100 = ">23 X 100 = </option>
+                        <option value="Capital of India?">Capital of India?</option>
+                        <option value="Capital of USA?">Capital of USA?</option>
+                    </select> </br> 
+                </td>
+            </tr>
+            <tr>
+                <td align=right>Security Answer:</td> 
+                <td> <input type="text" id="answer2" name="answer2" required> </br> </td>
+            </tr>
+            <tr>
+                <td align=right>Mobile:</td> 
+                <td> <input type="tel" id="mobile" name="mobile" placeholder="669-123-1234" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                    title="Your phone format should be 123-456-7890"> </br> </td>
+            </tr>
+            <tr>
+                <td align=right>Address:</td> 
+                <td> <textarea name="address" id="address" rows="3" cols="50" required></textarea> </br> </td>
+            </tr>
+            <tr>
+                <td></td> 
+                <td> Areas you may be interested in, please select one or more(with Ctl): </br> </td>
+            </tr>
+            <tr>
+                <td></td> 
+                <td> 
+                    <select name="interest" id="interest" multiple required>
+                        <option value="CS">CS</option>
+                        <option value="Software">Software</option>
+                        <option value="Math">Math</option>
+                        <option value="Music">Music</option>
+                        <option value="Animal">Animal</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Ice">Ice</option>
+                    </select></br> 
+                </td>
+            </tr>
+            <tr>
+                <td> </td>
+                <td> 
+                    <input class="button" type="submit" value="Register">
+                    <button class="button" onclick="cancel()">Cancel</button>
+                </td>
+            </tr>
+        </table>
+        <p class="error" id="errMsg">
+    </form>
+    <hr>
+    <div class="test">
+        <p>
+            Testing: click to get your stored data 
+            <button class="button_test" onclick="getLocalStorage()">LocalStorage</button>
+            <button class="button_test" onclick="getSessionStorage()">SessionStorage</button>
+        </p>
+        <p id="storeMsg">
+    </div>
+</div>
+
+</body>
+</html>
